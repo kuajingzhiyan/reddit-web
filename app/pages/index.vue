@@ -1,13 +1,24 @@
+<script setup lang="ts">
+const { t } = useI18n()
+
+useSeoMeta({
+  title: t('SpanGrowth | Reddit 营销增长专家'),
+  description: t('高精准受众定位，用原生创意与 AI 矩阵引爆 Reddit 流量。突破传统广告壁垒，为您提供安全、高转化的定制方案。'),
+})
+</script>
+
 <template>
-  <!-- 浅色暖调背景，与 v0 预览页 hero 区一致 -->
-  <div class="min-h-screen bg-brand-cream pt-24">
-    <section
-      id="advantages"
-      class="flex min-h-[60vh] items-center justify-center px-4"
-    >
-      <h1 class="text-3xl font-bold text-gray-900">
-        SpanGrowth
-      </h1>
-    </section>
-  </div>
+  <main class="min-h-screen bg-background text-foreground overflow-x-hidden text-left">
+    <AppHeader />
+    <LandingHeroSection />
+    <LandingPlanetMarquee />
+    <LandingCreditRechargeSection />
+    <LandingAiScanner />
+    <LandingWhySpangrowth />
+    <LandingServicesSection />
+    <LandingTestimonialSection />
+    <LandingProcessSection />
+    <LandingSpecialInquiries />
+    <LandingFooterSection />
+  </main>
 </template>
