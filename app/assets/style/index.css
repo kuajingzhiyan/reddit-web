@@ -33,6 +33,11 @@ body {
   }
 }
 
+/* 全局 button 清除浏览器默认样式（与 uno shortcut btn-reset 一致） */
+button {
+  @apply btn-reset;
+}
+
 /* 玻璃卡片 */
 .glass-card {
   background: rgba(255, 255, 255, 0.03);

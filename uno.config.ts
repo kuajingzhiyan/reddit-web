@@ -21,7 +21,7 @@ export default defineConfig({
     'btn-reset':
       'appearance-none bg-transparent border-none p-0 m-0 cursor-pointer outline-none shadow-none ring-0 font-inherit text-inherit leading-inherit',
     'nav-link':
-      'btn-reset inline-block no-underline text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative group',
+      'btn-reset inline-block no-underline text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative nav-link-underline',
     'lang-btn': 'btn-reset text-sm transition-colors duration-200',
     'input-field':
       'w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder:text-[rgba(255,255,255,0.6)] outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-200',
@@ -48,9 +48,9 @@ export default defineConfig({
     animation: {
       keyframes: {
         marquee:
-          '{from{transform:translateX(0)}to{transform:translateX(-50%)}}',
+          '{from{transform:translateX(0)}to{transform:translateX(calc(-100% - var(--gap)))}}',
         'marquee-reverse':
-          '{from{transform:translateX(-50%)}to{transform:translateX(0)}}',
+          '{from{transform:translateX(calc(-100% - var(--gap)))}to{transform:translateX(0)}}',
         'typing-cursor': '{0%,100%{opacity:1}50%{opacity:0}}',
         'blur-in':
           '{0%{filter:blur(10px);opacity:0;transform:translateY(10px)}100%{filter:blur(0);opacity:1;transform:translateY(0)}}',
@@ -58,8 +58,8 @@ export default defineConfig({
           '{0%,100%{box-shadow:0 0 20px rgba(115,98,168,0.5)}50%{box-shadow:0 0 40px rgba(115,98,168,0.8)}}',
       },
       durations: {
-        marquee: '40s',
-        'marquee-reverse': '45s',
+        marquee: 'var(--marquee-duration)',
+        'marquee-reverse': 'var(--marquee-duration)',
         'typing-cursor': '1s',
         'blur-in': '0.5s',
         'glow-pulse': '2s',

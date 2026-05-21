@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-// 三大服务卡片数据：中文文案用 t() 以便与 zh.json 对齐
+// 四大服务：对齐 React components/services-section.tsx
 const services = computed(() => [
   {
     icon: 'i-lucide-map-pin',
@@ -24,109 +24,74 @@ const services = computed(() => [
     features: [t('关键词研究'), t('内容优化'), t('排名追踪')],
     gradient: 'from-primary to-primary/60',
   },
+  {
+    icon: 'i-lucide-shield',
+    title: t('AI 舆情监控与品牌风控'),
+    description: t('24/7 全天候毫秒级检索 Reddit 全网动态，精准捕捉品牌提及、竞品走向与用户负面情绪。在公关危机爆发前智能预警，全方位守护品牌海外声誉。'),
+    features: [t('全网声誉实时监测'), t('负面情感智能预警'), t('竞品动态情报追踪')],
+    gradient: 'from-primary to-primary/60',
+  },
 ])
 </script>
 
 <template>
   <section id="services" class="relative py-24 overflow-hidden">
-    <!-- Background -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <div class="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Header -->
       <div class="text-center space-y-4 mb-16">
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance">
-          {{ $t('三大核心服务支柱') }}
+          {{ $t('四大核心服务支柱') }}
         </h2>
         <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
           {{ $t('全方位 Reddit 营销解决方案，从内容创作到 SEO 优化一站式服务') }}
         </p>
       </div>
 
-      <!-- Services Grid -->
-      <div class="grid lg:grid-cols-3 gap-8">
-        <div v-for="service in services" :key="service.title"
-          class="group relative glass-card glass-card-hover rounded-2xl p-8  transition-all duration-500">
-          <div class="space-y-6">
-            <!-- Icon -->
-            <div :class="['w-14 h-14 rounded-xl bg-gradient-to-br p-0.5', service.gradient]">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <div
+          v-for="service in services"
+          :key="service.title"
+          class="group relative flex h-full flex-col glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500"
+        >
+          <div class="flex flex-1 flex-col space-y-6">
+            <div :class="['w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br p-0.5', service.gradient]">
               <div class="w-full h-full rounded-xl bg-background flex items-center justify-center">
                 <span :class="[service.icon, 'w-6 h-6 text-foreground']" />
               </div>
             </div>
 
-            <!-- Content -->
-            <div class="space-y-4">
-              <h3 class="text-xl font-bold tracking-tight text-foreground">
+            <div class="flex flex-1 flex-col space-y-4">
+              <h3 class="text-xl font-bold tracking-tight text-foreground line-clamp-2 min-h-[3.5rem]">
                 {{ service.title }}
               </h3>
-              <p class="text-muted-foreground leading-relaxed">
+              <p class="flex-1 text-muted-foreground leading-relaxed">
                 {{ service.description }}
               </p>
             </div>
 
-            <!-- Features -->
-            <ul class="space-y-2">
+            <ul class="space-y-2 shrink-0">
               <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2 text-sm">
-                <div class="w-1.5 h-1.5 rounded-full bg-primary" />
+                <div class="w-1.5 h-1.5 shrink-0 rounded-full bg-primary" />
                 <span class="text-foreground">{{ feature }}</span>
               </li>
             </ul>
-
-            <!-- CTA -->
-            <div class="pt-4">
-              <ButtonsButtonTypeD href="#hero-form">
-                {{ $t('了解更多') }}
-              </ButtonsButtonTypeD>
-            </div>
           </div>
 
-
-          <!-- Decorative gradient border on hover -->
-          <div :class="[
-            'absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r mt-[-1px] blur-sm -z-10',
-            service.gradient,
-          ]" />
-        </div>
-      </div>
-
-      <!-- Additional Info -->
-      <div class="mt-16 glass-card rounded-2xl p-8 lg:p-12">
-        <div class="grid lg:grid-cols-3 gap-8 items-center">
-          <div class="lg:col-span-2 space-y-4">
-            <h3 class="text-2xl font-bold tracking-tight text-foreground">
-              {{ $t('为什么选择全案服务？') }}
-            </h3>
-            <p class="text-muted-foreground leading-relaxed">
-              {{ $t('单一渠道的营销效果有限。我们的全案服务将 GEO 定向、UGC 内容和 SEO 优化有机结合，形成增长飞轮。数据显示，采用全案服务的客户平均 ROI 比单一服务高出 3.5 倍。') }}
-            </p>
+          <div class="pt-4 mt-auto shrink-0">
+            <ButtonsButtonTypeD href="#hero-form">
+              {{ $t('了解更多') }}
+            </ButtonsButtonTypeD>
           </div>
-          <div class="flex flex-col sm:flex-row lg:flex-col gap-4">
-            <div class="flex items-center gap-3 p-4 rounded-xl bg-muted">
-              <span class="i-lucide-globe w-8 h-8 text-primary" />
-              <div>
-                <div class="text-2xl font-bold text-foreground">
-                  50+
-                </div>
-                <div class="text-sm text-muted-foreground">
-                  {{ $t('覆盖国家地区') }}
-                </div>
-              </div>
-            </div>
-            <div class="flex items-center gap-3 p-4 rounded-xl bg-muted">
-              <span class="i-lucide-message-square w-8 h-8 text-primary" />
-              <div>
-                <div class="text-2xl font-bold text-foreground">
-                  10K+
-                </div>
-                <div class="text-sm text-muted-foreground">
-                  {{ $t('月度互动量') }}
-                </div>
-              </div>
-            </div>
-          </div>
+
+          <div
+            :class="[
+              'absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r blur-sm -z-10',
+              service.gradient,
+            ]"
+          />
         </div>
       </div>
     </div>

@@ -1,4 +1,11 @@
 <script setup lang="ts">
+// fixed：全页视口固定层，用于首页整体星点背景
+const props = withDefaults(defineProps<{
+  fixed?: boolean
+}>(), {
+  fixed: false,
+})
+
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
 /** 散落星点：全屏随机分布 + 柔和闪烁 */
@@ -115,7 +122,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+  <div
+    class="overflow-hidden pointer-events-none"
+    :class="props.fixed ? 'fixed inset-0 z-0' : 'absolute inset-0'"
+  >
     <canvas
       ref="canvasRef"
       class="sparkle-starfield-canvas"

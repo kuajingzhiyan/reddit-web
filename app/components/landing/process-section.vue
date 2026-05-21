@@ -20,7 +20,7 @@ const steps = computed(() => [
   {
     number: '03',
     icon: 'i-lucide-target',
-    title: t('GEO 定向发帖互动'),
+    title: t('定向发帖互动'),
     description: t('老号矩阵精准投放，原生内容自然渗透，建立品牌社区影响力。'),
     duration: t('持续进行'),
   },
@@ -58,16 +58,16 @@ const steps = computed(() => [
         <!-- Connection Line -->
         <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent -translate-y-1/2" />
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           <div
             v-for="(step, index) in steps"
             :key="step.number"
-            class="relative group"
+            class="relative group h-full"
           >
-            <!-- Card -->
-            <div class="glass-card glass-card-hover rounded-2xl p-6 space-y-4 h-full transition-all duration-300">
+            <!-- Card：flex 等高，底部 duration 对齐 -->
+            <div class="flex h-full flex-col glass-card glass-card-hover rounded-2xl p-6 transition-all duration-300">
               <!-- Number Badge -->
-              <div class="flex items-center justify-between">
+              <div class="mb-4 flex shrink-0 items-center justify-between">
                 <span class="text-4xl font-bold text-gradient">{{ step.number }}</span>
                 <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
                   <span :class="[step.icon, 'w-6 h-6 text-foreground']" />
@@ -75,17 +75,17 @@ const steps = computed(() => [
               </div>
 
               <!-- Content -->
-              <div class="space-y-2">
-                <h3 class="text-lg font-bold tracking-tight text-foreground">
+              <div class="mb-4 flex flex-1 flex-col space-y-2">
+                <h3 class="text-lg font-bold tracking-tight text-foreground line-clamp-2 min-h-[3.5rem]">
                   {{ step.title }}
                 </h3>
-                <p class="text-sm text-muted-foreground leading-relaxed">
+                <p class="flex-1 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                   {{ step.description }}
                 </p>
               </div>
 
               <!-- Duration -->
-              <div class="pt-4 border-t border-border">
+              <div class="mt-auto shrink-0 border-t border-border pt-4">
                 <span class="text-xs text-primary font-medium">{{ step.duration }}</span>
               </div>
             </div>

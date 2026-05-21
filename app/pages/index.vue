@@ -8,17 +8,18 @@ useSeoMeta({
 </script>
 
 <template>
-  <main class="min-h-screen bg-background text-foreground overflow-x-hidden text-left">
-    <AppHeader />
+  <!-- 全页星点：fixed 铺满视口，滚动各区块时持续可见 -->
+  <!-- <LandingSparkleCanvas fixed /> -->
+  <div class="relative z-10">
+    <LandingSparkleCanvas />
     <LandingHeroSection />
+    <LandingContactQrSection />
     <LandingPlanetMarquee />
-    <LandingCreditRechargeSection />
-    <LandingAiScanner />
-    <LandingWhySpangrowth />
     <LandingServicesSection />
+    <LandingRedditMarketingSection />
+    <LandingCreditRechargeSection />
     <LandingTestimonialSection />
     <LandingProcessSection />
-    <LandingSpecialInquiries />
     <LandingFooterSection />
-  </main>
+  </div>
 </template>
