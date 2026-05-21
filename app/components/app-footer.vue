@@ -62,8 +62,6 @@ const socialIcons = [
   { icon: 'i-lucide-send', label: 'Telegram' },
 ]
 
-const isChatOpen = ref(false)
-
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }

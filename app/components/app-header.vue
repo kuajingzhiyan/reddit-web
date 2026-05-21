@@ -171,13 +171,13 @@ onUnmounted(() => {
                 {{ $t(link.label) }}
               </motion.button>
               <motion.div
-                class="pt-4 border-t border-border max-w-fit"
+                class="pt-4 border-t border-border "
                 :initial="{ opacity: 0, y: 8 }"
                 :animate="{ opacity: 1, y: 0 }"
                 :exit="{ opacity: 0, y: 6 }"
                 :transition="mobileNavItemTransition(navLinks.length)"
               >
-                <ButtonsButtonTypeA class="w-full" @click="scrollToSection('#hero-form')">
+                <ButtonsButtonTypeA class="max-w-fit" @click="scrollToSection('#hero-form')">
                   {{ $t('免费品牌调研报告') }}
                 </ButtonsButtonTypeA>
               </motion.div>

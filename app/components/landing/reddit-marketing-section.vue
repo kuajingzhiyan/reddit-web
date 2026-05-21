@@ -75,7 +75,7 @@ function toggleStrategy(id: number) {
         </div>
 
         <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
-          <div v-for="method in marketingMethods" :key="method.title" class="space-y-4">
+          <div v-for="method in marketingMethods" :key="method.title" class="space-y-4 glass-card glass-card-hover rounded-xl p-6 ">
             <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
               <span :class="[method.icon, 'w-8 h-8 text-primary']" />
             </div>
@@ -121,7 +121,7 @@ function toggleStrategy(id: number) {
               </span>
               <div
                 :class="cn(
-                  'w-10 h-10 rounded-full bg-muted flex items-center justify-center transition-transform duration-300',
+                  'w-10 h-10 rounded-full bg-muted flex items-center shrink-0 justify-center transition-transform duration-300',
                   openId === strategy.id && 'rotate-180',
                 )"
               >

@@ -17,7 +17,7 @@ function scrollToForm() {
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 pt-10">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] text-foreground">
+      <h1 class="md:text-[48px] text-[28px] font-bold tracking-tight leading-[1.4] text-foreground">
         {{ $t('告别无效曝光 用 AI 原生矩阵') }}
         <br>
         <span class="text-gradient">{{ $t('重塑您的 Reddit 增长引擎') }}</span>
@@ -41,7 +41,7 @@ function scrollToForm() {
       </div>
 
       <div class="pt-16">
-        <div class="flex flex-col items-center gap-2 text-muted-foreground">
+        <div class="flex flex-col items-center gap-2 text-muted-foreground cursor-pointer" @click="scrollToForm">
           <span class="text-sm">{{ $t('看看如何') }}</span>
           <span class="i-lucide-arrow-down w-5 h-5 animate-bounce" />
         </div>
