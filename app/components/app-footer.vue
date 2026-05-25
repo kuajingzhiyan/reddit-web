@@ -6,6 +6,7 @@ const { t } = useI18n()
 
 // Telegram 图标：assets 内 SVG 经 assetUrl 解析为可访问 URL
 const tgIconUrl = assetUrl('images/svgs/tg.svg')
+const tgLink = 'https://t.me/+PM26TRYjWIo3Nzdk'
 
 // 页脚链接对齐 React components/footer-section.tsx
 interface FooterLinkItem {
@@ -142,7 +143,7 @@ function scrollToTop() {
         <span class="i-lucide-phone w-6 h-6 text-[#25D366]" />
       </a> -->
 
-      <a href="https://t.me/spangrowth" target="_blank" rel="noopener noreferrer" :class="cn(
+      <a :href="tgLink" target="_blank" rel="noopener noreferrer" :class="cn(
         'w-14 h-14 rounded-full glass-card flex items-center justify-center transition-all duration-300',
         'shadow-[0_0_20px_rgba(0,136,204,0.6)] hover:scale-110 hover:shadow-[0_0_35px_rgba(0,136,204,0.8)]',
       )" aria-label="Contact on Telegram">
