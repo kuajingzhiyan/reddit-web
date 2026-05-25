@@ -35,6 +35,9 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        /** 顶栏 Logo 体积小，preload 可避免首帧后再补请求 */
+        { rel: 'preload', href: '/logo.png', as: 'image', fetchpriority: 'high' },
+        { rel: 'preload', href: '/logo-mark.png', as: 'image' },
       ],
     },
   },

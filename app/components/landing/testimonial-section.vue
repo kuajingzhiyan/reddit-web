@@ -43,11 +43,11 @@ const trustIndicators = computed(() => [
         <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-24 bg-gradient-to-r from-background to-transparent" />
         <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-24 bg-gradient-to-l from-background to-transparent" />
 
-        <Marquee :repeat="2" class="[--marquee-duration:80s] [--gap:1.5rem]">
+        <Marquee class="[--marquee-duration:80s] [--gap:1.5rem]">
           <div
             v-for="testimonial in testimonialData"
             :key="testimonial.id"
-            class="w-[320px] sm:w-[360px] shrink-0 glass-card rounded-2xl p-6 border border-border/50 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
+            class="testimonial-marquee-card w-[320px] sm:w-[360px] shrink-0 rounded-2xl p-6"
           >
             <RatingStars :rating="testimonial.rating" class="mb-4" />
 
@@ -83,3 +83,30 @@ const trustIndicators = computed(() => [
     </div>
   </section>
 </template>
+
+<style scoped>
+/* 横向滚动时每张卡若在视口合成，整块 backdrop-blur 很贵（尤其 Safari）。
+   纯色底 + 仅过渡 border/background，省合成与 repaint。 */
+.testimonial-marquee-card {
+  contain: layout style;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.04);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-marquee-card:hover {
+  border-color: rgba(115, 98, 168, 0.45);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-marquee-card {
+    transition-duration: 0.01ms;
+  }
+}
+</style>

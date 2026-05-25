@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// fixed：全页视口固定层，用于首页整体星点背景
+// fixed：仅铺满视口；勿放在「包一整页」的 relative 里，否则画布按整页高度分配辨率会极卡
 const props = withDefaults(defineProps<{
   fixed?: boolean
 }>(), {
@@ -16,29 +16,42 @@ interface SparkleStar {
   baseAlpha: number
   twinklePhase: number
   twinkleSpeed: number
+  isBright: boolean
 }
 
 const COLOR_BRIGHT = '195, 180, 235'
 const COLOR_DIM = '235, 232, 245'
 
+/** 视口级画布：略压 DPR，老款 Mac / 高 DPR 屏更省显存 */
+function effectiveDpr(): number {
+  const raw = window.devicePixelRatio || 1
+  let cap = Math.min(raw, 1.75)
+  if (navigator.hardwareConcurrency != null && navigator.hardwareConcurrency <= 4)
+    cap = Math.min(cap, 1.25)
+  return cap
+}
+
 function createSparkles(width: number, height: number): SparkleStar[] {
-  const count = Math.min(180, Math.floor((width * height) / 7000))
+  const area = width * height
+  // 视口面积有限，仍设上限避免极端宽屏
+  const count = Math.min(100, Math.max(40, Math.floor(area / 12000)))
 
   return Array.from({ length: count }, () => {
-    const isBright = Math.random() < 0.2
+    const isBright = Math.random() < 0.18
     return {
       x: Math.random() * width,
       y: Math.random() * height,
-      size: isBright ? 2.2 + Math.random() * 1.8 : 0.9 + Math.random() * 1.2,
-      baseAlpha: isBright ? 0.45 + Math.random() * 0.35 : 0.22 + Math.random() * 0.25,
+      size: isBright ? 2 + Math.random() * 1.6 : 0.85 + Math.random() * 1,
+      baseAlpha: isBright ? 0.42 + Math.random() * 0.3 : 0.2 + Math.random() * 0.22,
       twinklePhase: Math.random() * Math.PI * 2,
-      twinkleSpeed: 0.001 + Math.random() * 0.0025,
+      twinkleSpeed: 0.0008 + Math.random() * 0.002,
+      isBright,
     }
   })
 }
 
 function initSparkleField(canvas: HTMLCanvasElement) {
-  const context = canvas.getContext('2d')
+  const context = canvas.getContext('2d', { alpha: true })
   if (!context)
     return () => {}
 
@@ -47,6 +60,7 @@ function initSparkleField(canvas: HTMLCanvasElement) {
   let height = 0
   let stars: SparkleStar[] = []
   let animationId = 0
+  let docVisible = !document.hidden
 
   function resize() {
     const parent = canvas.parentElement
@@ -55,7 +69,7 @@ function initSparkleField(canvas: HTMLCanvasElement) {
 
     width = parent.clientWidth
     height = parent.clientHeight
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const dpr = effectiveDpr()
 
     canvas.width = Math.floor(width * dpr)
     canvas.height = Math.floor(height * dpr)
@@ -72,26 +86,30 @@ function initSparkleField(canvas: HTMLCanvasElement) {
     for (const star of stars) {
       const twinkle = 0.75 + 0.25 * Math.sin(time * star.twinkleSpeed + star.twinklePhase)
       const alpha = Math.min(1, star.baseAlpha * twinkle)
-      const isBright = star.size > 2
-      const rgb = isBright ? COLOR_BRIGHT : COLOR_DIM
+      const rgb = star.isBright ? COLOR_BRIGHT : COLOR_DIM
 
       ctx.beginPath()
       ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2)
       ctx.fillStyle = `rgba(${rgb}, ${alpha})`
       ctx.fill()
 
-      if (isBright) {
+      if (star.isBright) {
         ctx.beginPath()
         ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${COLOR_BRIGHT}, ${alpha * 0.15})`
+        ctx.fillStyle = `rgba(${COLOR_BRIGHT}, ${alpha * 0.14})`
         ctx.fill()
       }
     }
   }
 
-  function render(time: number) {
-    draw(time)
-    animationId = requestAnimationFrame(render)
+  function tick(time: number) {
+    if (docVisible)
+      draw(time)
+    animationId = requestAnimationFrame(tick)
+  }
+
+  function onVisibility() {
+    docVisible = !document.hidden
   }
 
   function onResize() {
@@ -99,12 +117,14 @@ function initSparkleField(canvas: HTMLCanvasElement) {
   }
 
   resize()
-  animationId = requestAnimationFrame(render)
+  animationId = requestAnimationFrame(tick)
   window.addEventListener('resize', onResize)
+  document.addEventListener('visibilitychange', onVisibility)
 
   return () => {
     cancelAnimationFrame(animationId)
     window.removeEventListener('resize', onResize)
+    document.removeEventListener('visibilitychange', onVisibility)
   }
 }
 
@@ -124,7 +144,7 @@ onUnmounted(() => {
 <template>
   <div
     class="overflow-hidden pointer-events-none"
-    :class="props.fixed ? 'fixed inset-0 z-0' : 'absolute inset-0'"
+    :class="props.fixed ? 'fixed inset-0 z-0 h-[100dvh] w-full' : 'absolute inset-0'"
   >
     <canvas
       ref="canvasRef"

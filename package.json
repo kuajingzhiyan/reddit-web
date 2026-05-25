@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "init:servers": "tsx scripts/init-servers.ts",
-    "deploy": "tsx scripts/deploy.ts"
+    "deploy": "tsx scripts/deploy.ts",
+    "optimize:logo": "node scripts/optimize-logo.mjs"
   },
   "dependencies": {
     "@nuxtjs/i18n": "10.3.0",
@@ -27,6 +28,7 @@
     "@types/qrcode": "^1.5.6",
     "@types/ssh2": "^1.15.5",
     "@unocss/nuxt": "^66.6.8",
+    "sharp": "^0.34.5",
     "ssh2": "^1.16.0",
     "tsx": "^4.19.4",
     "unocss": "^66.6.8"

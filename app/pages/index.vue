@@ -8,10 +8,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <!-- 全页星点：fixed 铺满视口，滚动各区块时持续可见 -->
-  <!-- <LandingSparkleCanvas fixed /> -->
   <div class="relative z-10">
-    <LandingSparkleCanvas />
+    <!-- <LandingSparkleCanvas /> -->
     <LandingHeroSection />
     <LandingContactQrSection />
     <LandingPlanetMarquee />

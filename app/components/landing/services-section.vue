@@ -36,6 +36,7 @@ const services = computed(() => [
 
 <template>
   <section id="services" class="relative py-24 overflow-hidden">
+    <LandingSparkleCanvas />
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <div class="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </div>
@@ -81,9 +82,14 @@ const services = computed(() => [
           </div>
 
           <div class="pt-4 mt-auto shrink-0">
-            <ButtonsButtonTypeD href="#hero-form">
+            <!-- 普通链接样式，无箭头位移动画 / blur-in -->
+            <a
+              href="#hero-form"
+              class="inline-flex items-center justify-center gap-2 rounded-xl"
+            >
               {{ $t('了解更多') }}
-            </ButtonsButtonTypeD>
+              <span class="i-lucide-arrow-right size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+            </a>
           </div>
 
           <div

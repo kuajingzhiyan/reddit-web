@@ -9,7 +9,16 @@ function scrollToForm() {
   <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-primary/5 via-background to-background">
     <LandingHeroStarCanvas />
     <div class="pt-18">
-      <img src="/logo.png" alt="SpanGrowth" class="w-60 h-60">
+      <!-- Logo 已通过 scripts/optimize-logo.mjs 压到 ~480px 宽；与 width/height 一致可减少 CLS、加快解码 -->
+      <img
+        src="/logo.png"
+        alt="SpanGrowth"
+        class="h-60 w-60 shrink-0 object-contain"
+        width="480"
+        height="476"
+        decoding="sync"
+        fetchpriority="high"
+      >
     </div>
     <div class="absolute inset-0 pointer-events-none">
       <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary/10 to-transparent" />

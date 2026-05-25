@@ -75,8 +75,15 @@ function scrollToTop() {
         <div class="grid lg:grid-cols-6 gap-12 mb-12">
           <div class="lg:col-span-2 space-y-6">
             <a href="#" class="flex items-center gap-2">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center">
-                <img src="/logo.png" alt="SpanGrowth" class="w-8 h-8">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden shrink-0">
+                <img
+                  src="/logo-mark.png"
+                  alt=""
+                  class="size-8 object-contain"
+                  width="128"
+                  height="127"
+                  decoding="async"
+                >
               </div>
               <span class="text-2xl font-bold tracking-tight text-foreground">SpanGrowth</span>
             </a>

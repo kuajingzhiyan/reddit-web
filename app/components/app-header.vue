@@ -87,8 +87,15 @@ onUnmounted(() => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 lg:h-20">
           <a href="#" class="flex items-center gap-2 group no-underline">
-            <div class="w-8 h-8 rounded-lg  flex items-center justify-center">
-                <img src="/logo.png" alt="SpanGrowth" class="w-8 h-8">
+            <div class="w-8 h-8 rounded-lg  flex items-center justify-center overflow-hidden shrink-0">
+                <img
+                  src="/logo-mark.png"
+                  alt=""
+                  class="size-8 object-contain"
+                  width="128"
+                  height="127"
+                  decoding="async"
+                >
             </div>
             <span class="text-xl font-bold tracking-tight text-foreground group-hover:text-gradient transition-all duration-300">
               SpanGrowth

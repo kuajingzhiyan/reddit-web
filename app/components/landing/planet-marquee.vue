@@ -41,31 +41,28 @@ const particles = Array.from({ length: 12 }, (_, i) => ({
 
     <div class="relative h-[400px] overflow-hidden">
       <div class="absolute top-8 left-0 right-0 z-10 overflow-hidden">
-        <!-- <div class="flex animate-marquee [--marquee-duration:40s] [--gap:1rem] [gap:var(--gap)]"> -->
-        <Marquee :repeat="4">
-          <div v-for="(brand, index) in [...brands]" :key="`first-${index}`"
-            class="group/brand flex items-center px-12 py-8 cursor-pointer transition-all duration-500 hover:scale-110">
-            <span
-              class="font-bold text-3xl md:text-4xl tracking-wider uppercase whitespace-nowrap text-zinc-500 group-hover/brand:text-white group-hover/brand:drop-shadow-[0_0_20px_rgba(115,98,168,0.8)] transition-all duration-500">
-              {{ brand.name }}
-            </span>
+        <!-- 两行 Marquee：transform 仅用 GPU 图层；文案 hover 仅用 color/text-shadow，避免 filter + transition-all -->
+        <Marquee class="planet-marquee-track" style="--marquee-duration: 72s" :repeat="2">
+          <div
+            v-for="(brand, index) in brands"
+            :key="`first-${index}`"
+            class="planet-brand-item group/brand shrink-0 flex cursor-pointer items-center px-10 py-6 md:px-12 md:py-8"
+          >
+            <span class="planet-brand-label">{{ brand.name }}</span>
           </div>
         </Marquee>
-        <!-- </div> -->
       </div>
 
       <div class="absolute top-24 left-0 right-0 z-10 overflow-hidden">
-        <!-- <div class="flex animate-marquee-reverse [--marquee-duration:40s] [--gap:1rem] [gap:var(--gap)]"> -->
-          <Marquee :repeat="4" :reverse="true">  
-          <div v-for="(brand, index) in [...reversedBrands]" :key="`second-${index}`"
-            class="group/brand flex items-center px-12 py-8 cursor-pointer transition-all duration-500 hover:scale-110">
-            <span
-              class="font-bold text-3xl md:text-4xl tracking-wider uppercase whitespace-nowrap text-zinc-500 group-hover/brand:text-white group-hover/brand:drop-shadow-[0_0_20px_rgba(115,98,168,0.8)] transition-all duration-500">
-              {{ brand.name }}
-            </span>
+        <Marquee class="planet-marquee-track" style="--marquee-duration: 72s" :repeat="2" :reverse="true">
+          <div
+            v-for="(brand, index) in reversedBrands"
+            :key="`second-${index}`"
+            class="planet-brand-item group/brand shrink-0 flex cursor-pointer items-center px-10 py-6 md:px-12 md:py-8"
+          >
+            <span class="planet-brand-label">{{ brand.name }}</span>
           </div>
         </Marquee>
-        <!-- </div> -->
       </div>
 
       <div
@@ -93,3 +90,44 @@ const particles = Array.from({ length: 12 }, (_, i) => ({
       class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-20 pointer-events-none" />
   </section>
 </template>
+
+<style scoped>
+.planet-brand-item {
+  contain: layout style;
+}
+
+/* hover Glow：text-shadow 比 CSS filter(drop-shadow) 在 Safari/macOS 上轻很多 */
+.planet-brand-label {
+  font-weight: 700;
+  font-size: clamp(1.375rem, 3vw, 2.25rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(113 113 122);
+  /* 仅过渡颜色与浅阴影，不走 transition-all，避免每层重绘整棵子树 */
+  transition:
+    color 0.28s ease,
+    text-shadow 0.28s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  text-shadow: none;
+  transform: translateZ(0);
+}
+
+.planet-brand-item:hover .planet-brand-label {
+  color: #fff;
+  text-shadow:
+    0 0 14px rgba(115, 98, 168, 0.55),
+    0 0 28px rgba(115, 98, 168, 0.28);
+  transform: translateZ(0) scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planet-brand-label {
+    transition-duration: 0.01ms;
+  }
+
+  .planet-brand-item:hover .planet-brand-label {
+    transform: translateZ(0);
+  }
+}
+</style>
