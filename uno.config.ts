@@ -25,6 +25,8 @@ export default defineConfig({
     'lang-btn': 'btn-reset text-sm transition-colors duration-200',
     'input-field':
       'w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder:text-[rgba(255,255,255,0.6)] outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-200',
+    'section-wrapper': 'relative pt-24 pb-20 lg:pt-28 lg:pb-28',
+    'section-container': 'relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
   },
   theme: {
     colors: {

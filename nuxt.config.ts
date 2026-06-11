@@ -16,6 +16,9 @@ export default defineNuxtConfig({
     vueI18n: './i18n/i18n.config.ts',
     strategy: 'no_prefix',
   },
+  appConfig: {
+    tgUrl: 'https://t.me/+PM26TRYjWIo3Nzdk'
+  },
   app: {
     head: {
       htmlAttrs: { lang: 'zh-CN' },

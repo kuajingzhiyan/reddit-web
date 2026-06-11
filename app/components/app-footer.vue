@@ -3,10 +3,11 @@ import { cn } from '~/utils/cn'
 import { assetUrl } from '~/utils/asset-url'
 
 const { t } = useI18n()
+const appConfig = useAppConfig()
+const tgLink = appConfig.tgUrl
 
 // Telegram 图标：assets 内 SVG 经 assetUrl 解析为可访问 URL
 const tgIconUrl = assetUrl('images/svgs/tg.svg')
-const tgLink = 'https://t.me/+PM26TRYjWIo3Nzdk'
 
 // 页脚链接对齐 React components/footer-section.tsx
 interface FooterLinkItem {

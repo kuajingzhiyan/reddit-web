@@ -22,22 +22,22 @@ const supportFeatures = computed(() => [
 
 <template>
   <div>
-    <section id="contact" class="relative py-24 overflow-hidden">
+    <section id="contact" class="relative py-10 overflow-hidden">
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center space-y-4 mb-16">
+        <!-- <div class="text-center space-y-4 mb-16">
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             {{ $t('7/24 全天候响应') }}
           </h2>
           <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
             {{ $t('跨越时区的增长护航，让您的品牌永不停歇') }}
           </p>
-        </div>
+        </div> -->
 
-        <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <!-- <div class="grid md:grid-cols-3 gap-8 mb-16">
           <div
             v-for="feature in supportFeatures"
             :key="feature.title"
@@ -53,34 +53,27 @@ const supportFeatures = computed(() => [
               {{ feature.description }}
             </p>
           </div>
-        </div>
+        </div> -->
 
-        <div class="glass-card rounded-2xl p-8 lg:p-12">
-          <div class="grid lg:grid-cols-2 gap-8 items-center">
-            <div class="space-y-4">
-              <h3 class="text-2xl font-bold tracking-tight text-foreground">
-                {{ $t('准备好引爆您的 Reddit 增长了吗？') }}
+        <div class="glass-card rounded-2xl p-6 lg:p-10">
+          <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
+            <div class="space-y-4 text-center">
+              <h3 class="text-3xl font-bold tracking-tight text-foreground">
+                {{ $t('7/24 全天候响应') }}
               </h3>
               <p class="text-muted-foreground leading-relaxed">
-                {{ $t('与我们的增长顾问预约一对一咨询，获取专属品牌策略。首次咨询完全免费，无任何附加条件。') }}
+                {{ $t('跨越时区的增长护航，让您的品牌永不停歇') }}
               </p>
-              <div class="flex flex-wrap gap-4 pt-4">
+              <!-- <div class="flex flex-wrap gap-4 pt-4">
                 <a
                   href="#hero-form"
                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:bg-primary/90"
                 >
                   {{ $t('预约免费咨询') }}
                 </a>
-                <!-- <a
-                  href="mailto:contact@spangrowth.com"
-                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold transition-all duration-300 hover:bg-muted"
-                >
-                  <span class="i-lucide-mail w-4 h-4" />
-                  contact@spangrowth.com
-                </a> -->
-              </div>
+              </div> -->
             </div>
-            <div class="lg:text-right space-y-6">
+            <div class="lg:text-right space-y-6 ">
               <div class="inline-block glass-card rounded-xl p-6 text-left">
                 <div class="text-sm text-muted-foreground mb-2">
                   {{ $t('工作时间') }}

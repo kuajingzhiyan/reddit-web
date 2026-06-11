@@ -1,4 +1,10 @@
 <script setup lang="ts">
+const appConfig = useAppConfig()
+const tgLink = appConfig.tgUrl
+
+function openTgChat() {
+  window.open(tgLink, '_blank')
+}
 // Hero 居中布局：对齐 React components/hero-section.tsx
 function scrollToForm() {
   document.querySelector('#hero-form')?.scrollIntoView({ behavior: 'smooth' })
@@ -13,9 +19,9 @@ function scrollToForm() {
       <img
         src="/logo.png"
         alt="SpanGrowth"
-        class="h-60 w-60 shrink-0 object-contain"
-        width="480"
-        height="476"
+        class="h-45 w-45 shrink-0 object-contain"
+        width="380"
+        height="376"
         decoding="sync"
         fetchpriority="high"
       >
@@ -40,9 +46,9 @@ function scrollToForm() {
         <button
           type="button"
           class="group inline-flex items-center gap-3 px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/20"
-          @click="scrollToForm"
+          @click="openTgChat"
         >
-          <span>{{ $t('免费获取调研报告') }}</span>
+          <span>{{ $t('联系我们') }}</span>
           <span class="flex items-center justify-center w-8 h-8 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors">
             <span class="i-lucide-arrow-down w-4 h-4 -rotate-90" />
           </span>
