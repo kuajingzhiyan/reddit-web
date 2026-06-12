@@ -1,6 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const apiProxyTarget = process.env.NUXT_API_PROXY_TARGET || 'http://127.0.0.1:3100'
+const googleClientId = process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID || ''
+
 export default defineNuxtConfig({
   modules: ['@unocss/nuxt', '@nuxtjs/i18n'],
+  runtimeConfig: {
+    // 由 server/routes/api/[...].ts 转发到 node-api-service
+    apiProxyTarget,
+    public: {
+      googleClientId,
+    },
+  },
   css: [
     '@unocss/reset/tailwind-compat.css',
     '~/assets/style/index.css',

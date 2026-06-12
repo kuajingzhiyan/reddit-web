@@ -5,6 +5,7 @@ import { cn } from '~/utils/cn'
 const router = useRouter()
 const appConfig = useAppConfig()
 const tgUrl = appConfig.tgUrl
+const { isLoggedIn, user, logout } = useAuth()
 
 const { locale, setLocale } = useI18n()
 
@@ -81,6 +82,19 @@ function openTgChat() {
   window.open(tgUrl, '_blank')
   isMobileMenuOpen.value = false
   isMobileServicesOpen.value = false
+}
+
+function redirectToLogin() {
+  router.push('/login')
+  isMobileMenuOpen.value = false
+  isMobileServicesOpen.value = false
+}
+
+async function handleLogout() {
+  await logout()
+  isMobileMenuOpen.value = false
+  isMobileServicesOpen.value = false
+  router.push('/')
 }
 
 function scrollToSection(href: string) {
@@ -214,8 +228,20 @@ onUnmounted(() => {
                 <span class="text-sm">EN</span>
               </div> -->
             </div>
-            <ButtonsButtonTypeA class="hidden xl:block" @click="openTgChat">
-              {{ $t('联系我们') }}
+            <template v-if="isLoggedIn">
+              <span class="hidden xl:inline text-sm text-muted-foreground">
+                {{ user?.name || user?.email }}
+              </span>
+              <button
+                type="button"
+                class="hidden xl:inline text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                @click="handleLogout"
+              >
+                {{ $t('退出登录') }}
+              </button>
+            </template>
+            <ButtonsButtonTypeA v-else class="hidden xl:block" @click="redirectToLogin">
+              {{ $t('登录') }}
             </ButtonsButtonTypeA>
           </div>
 
@@ -321,12 +347,27 @@ onUnmounted(() => {
                 </div>
               </div>
               <motion.div
-                class="pt-4 border-t border-border "
+                class="flex flex-col gap-3 pt-4 border-t border-border"
                 :initial="{ opacity: 0, y: 8 }"
                 :animate="{ opacity: 1, y: 0 }"
                 :exit="{ opacity: 0, y: 6 }"
                 :transition="mobileNavItemTransition(navLinks.length + 1)"
               >
+                <template v-if="isLoggedIn">
+                  <p class="text-sm text-muted-foreground">
+                    {{ user?.email }}
+                  </p>
+                  <button
+                    type="button"
+                    class="nav-link text-left"
+                    @click="handleLogout"
+                  >
+                    {{ $t('退出登录') }}
+                  </button>
+                </template>
+                <ButtonsButtonTypeA v-else class="max-w-fit" @click="redirectToLogin">
+                  {{ $t('登录') }}
+                </ButtonsButtonTypeA>
                 <ButtonsButtonTypeA class="max-w-fit" @click="openTgChat">
                   {{ $t('联系我们') }}
                 </ButtonsButtonTypeA>

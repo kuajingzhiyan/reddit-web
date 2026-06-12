@@ -16,6 +16,10 @@ const isSubmitting = ref(false)
 const submitSuccess = ref(false)
 const submitError = ref('')
 
+function getContactErrorMessage(error: unknown) {
+  return getApiErrorMessage(error)
+}
+
 async function onSubmit() {
   submitError.value = ''
   submitSuccess.value = false
@@ -37,17 +41,29 @@ async function onSubmit() {
     return
   }
 
+
+
   isSubmitting.value = true
   try {
-    // 暂无后端接口：模拟提交；接入 API 后替换此段
-    await new Promise(resolve => setTimeout(resolve, 600))
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: { name, email, message },
+    })
     submitSuccess.value = true
     form.name = ''
     form.email = ''
     form.message = ''
   }
-  catch {
-    submitError.value = t('提交失败，请稍后重试')
+  catch (error) {
+    const message = getContactErrorMessage(error)
+    if (message === '请填写姓名')
+      submitError.value = t('请填写姓名')
+    else if (message === '请填写有效的邮箱')
+      submitError.value = t('请填写有效的邮箱')
+    else if (message === '请填写留言内容')
+      submitError.value = t('请填写留言内容')
+    else
+      submitError.value = message || t('提交失败，请稍后重试')
   }
   finally {
     isSubmitting.value = false

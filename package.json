@@ -9,7 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "init:servers": "tsx scripts/init-servers.ts",
-    "deploy": "tsx scripts/deploy.ts",
+    "deploy": "pnpm run generate && tsx scripts/deploy.ts",
     "optimize:logo": "node scripts/optimize-logo.mjs"
   },
   "dependencies": {

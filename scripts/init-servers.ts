@@ -34,10 +34,12 @@ function loadEnv(filePath: string) {
 function buildNginxConfigContent(item: ServerItem): string {
   const template = fs.readFileSync(path.join(projectRoot, 'nginx.conf'), 'utf8')
   const deployPath = item.deployPath ?? '/var/www/html'
+  const apiPort = String(item.apiPort ?? 3100)
   return template
     .replace(/__WWW_DOMAIN__/g, item.wwwDomain)
     .replace(/__DOMAIN__/g, item.domain)
     .replace(/__DEPLOY_PATH__/g, deployPath)
+    .replace(/__API_PORT__/g, apiPort)
 }
 
 function runRemoteCommand(conn: Client, command: string): Promise<void> {

@@ -174,7 +174,7 @@ const remoteCmd = process.env.DEPLOY_REMOTE_CMD?.trim()
 
 console.log(`[deploy] SSH ${user}@${host}:${port} -> ${deployPath}`)
 
-run('pnpm', ['generate'])
+// run('pnpm', ['generate'])
 
 const localDir = path.join(projectRoot, '.output/public')
 if (!existsSync(localDir)) {

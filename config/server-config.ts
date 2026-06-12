@@ -8,6 +8,8 @@ export type ServerItem = {
   wwwDomain: string
   /** 静态站点根目录，需与 deploy 脚本 DEPLOY_PATH 一致 */
   deployPath?: string
+  /** auth-api 监听端口，需与 nginx __API_PORT__ 一致 */
+  apiPort?: number
 }
 
 /**
@@ -20,5 +22,6 @@ export const serverConfig: Record<string, ServerItem> = {
     domain: 'spangrowth.com',
     wwwDomain: 'www.spangrowth.com',
     deployPath: '/var/www/html',
+    apiPort: 3100,
   },
 }
