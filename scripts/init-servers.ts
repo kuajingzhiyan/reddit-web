@@ -42,6 +42,7 @@ function buildNginxConfigContent(item: ServerItem): string {
     .replace(/__API_PORT__/g, apiPort)
 }
 
+/** 在远端执行命令；必须排空 stdout，否则 apt 等命令写满缓冲区后会永久卡住 */
 function runRemoteCommand(conn: Client, command: string): Promise<void> {
   return new Promise((resolve, reject) => {
     conn.exec(command, (err, stream) => {
@@ -50,6 +51,8 @@ function runRemoteCommand(conn: Client, command: string): Promise<void> {
         return
       }
       let stderr = ''
+      // 不消费 stdout 时，ssh2 exec 缓冲区满会导致远端 apt 等进程阻塞
+      stream.on('data', () => {})
       stream.stderr.on('data', (d: Buffer) => { stderr += d.toString() })
       stream.on('close', (code) => {
         if (code === 0)

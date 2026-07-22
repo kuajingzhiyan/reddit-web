@@ -18,7 +18,7 @@ export type ServerItem = {
  */
 export const serverConfig: Record<string, ServerItem> = {
   spangrowth: {
-    host: '8.210.98.210',
+    host: '47.83.6.149',
     domain: 'spangrowth.com',
     wwwDomain: 'www.spangrowth.com',
     deployPath: '/var/www/html',
